@@ -3,7 +3,7 @@
  * It was generated using rpcgen.
  */
 
-#include "teste.h"
+#include "calc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <rpc/pmap_clnt.h>
@@ -20,7 +20,13 @@ static void
 simp_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		operands soma_1_arg;
+		operands sum_1_arg;
+		operands sub_1_arg;
+		operands mul_1_arg;
+		operands div_1_arg;
+		operands abs_1_arg;
+		operands res_1_arg;
+		operands exp_1_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -31,10 +37,46 @@ simp_prog_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		(void) svc_sendreply (transp, (xdrproc_t) xdr_void, (char *)NULL);
 		return;
 
-	case soma:
+	case sum:
 		_xdr_argument = (xdrproc_t) xdr_operands;
-		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) soma_1_svc;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) sum_1_svc;
+		break;
+
+	case sub:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) sub_1_svc;
+		break;
+
+	case mul:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) mul_1_svc;
+		break;
+
+	case div:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) div_1_svc;
+		break;
+
+	case abs:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) abs_1_svc;
+		break;
+
+	case res:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) res_1_svc;
+		break;
+
+	case exp:
+		_xdr_argument = (xdrproc_t) xdr_operands;
+		_xdr_result = (xdrproc_t) xdr_float;
+		local = (char *(*)(char *, struct svc_req *)) exp_1_svc;
 		break;
 
 	default:

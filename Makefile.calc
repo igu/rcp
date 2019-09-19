@@ -3,18 +3,18 @@
 
 # Parameters
 
-CLIENT = teste_client
-SERVER = teste_server
+CLIENT = calc_client
+SERVER = calc_server
 
 SOURCES_CLNT.c = 
 SOURCES_CLNT.h = 
 SOURCES_SVC.c = 
 SOURCES_SVC.h = 
-SOURCES.x = teste.x
+SOURCES.x = calc.x
 
-TARGETS_SVC.c = teste_svc.c teste_server.c teste_xdr.c 
-TARGETS_CLNT.c = teste_clnt.c teste_client.c teste_xdr.c 
-TARGETS = teste.h teste_xdr.c teste_clnt.c teste_svc.c teste_client.c teste_server.c
+TARGETS_SVC.c = calc_svc.c calc_server.c calc_xdr.c 
+TARGETS_CLNT.c = calc_clnt.c calc_client.c calc_xdr.c 
+TARGETS = calc.h calc_xdr.c calc_clnt.c calc_svc.c calc_client.c calc_server.c
 
 OBJECTS_CLNT = $(SOURCES_CLNT.c:%.c=%.o) $(TARGETS_CLNT.c:%.c=%.o)
 OBJECTS_SVC = $(SOURCES_SVC.c:%.c=%.o) $(TARGETS_SVC.c:%.c=%.o)
