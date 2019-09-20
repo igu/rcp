@@ -1,17 +1,17 @@
-struct operands{
-	float n1;
-	float n2;
+struct operants {
+	int n1;
+	int n2;
 	char op;
 };
 
-program SIMP_PROG {
-	version SIMP_VERSION{
-		float sum(operands) = 1;
-		float sub(operands) = 2;
-		float mul(operands) = 3;
-		float div(operands) = 4;
-		float abs(operands) = 5;
-		float res(operands) = 6;
-		float exp(operands) = 7; 
+program CALC_PROG{
+	version CALC_VERSION{
+		int som(operants) = 1;
+		int sub(operants) = 2;
+		int mul(operants) = 3;
+		int div(operants) = 4;
+		int res(operants) = 5;
+		int abs(operants) = 6;
+		int exp(operants) = 7;
 	} = 1;
-} = 0x2fffffff;
+} = 0x2ffffff;

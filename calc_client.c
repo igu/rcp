@@ -7,79 +7,148 @@
 #include "calc.h"
 
 
-void
-simp_prog_1(char *host)
+int
+calc_prog_1(char *host, int n1, int n2, char op)
 {
 	CLIENT *clnt;
-	float  *result_1;
-	operands  sum_1_arg;
-	float  *result_2;
-	operands  sub_1_arg;
-	float  *result_3;
-	operands  mul_1_arg;
-	float  *result_4;
-	operands  div_1_arg;
-	float  *result_5;
-	operands  abs_1_arg;
-	float  *result_6;
-	operands  res_1_arg;
-	float  *result_7;
-	operands  exp_1_arg;
+	int  *result_1;
+	operants  som_1_arg;
+	int  *result_2;
+	operants  sub_1_arg;
+	int  *result_3;
+	operants  mul_1_arg;
+	int  *result_4;
+	operants  div_1_arg;
+	int  *result_5;
+	operants  res_1_arg;
+	int  *result_6;
+	operants  abs_1_arg;
+	int  *result_7;
+	operants  exp_1_arg;
+
 
 #ifndef	DEBUG
-	clnt = clnt_create (host, SIMP_PROG, SIMP_VERSION, "udp");
+	clnt = clnt_create (host, CALC_PROG, CALC_VERSION, "udp");
 	if (clnt == NULL) {
 		clnt_pcreateerror (host);
 		exit (1);
 	}
 #endif	/* DEBUG */
 
-	result_1 = sum_1(&sum_1_arg, clnt);
-	if (result_1 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
+	if (op == '+') {
+		printf("Entrou no MAIS\n");
+		som_1_arg.n1 = n1;
+		som_1_arg.n2 = n2;
+		som_1_arg.op = op;
+
+		result_1 = som_1(&som_1_arg, clnt);
+		if (result_1 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_1;
+	} else if (op == '-') {
+
+		sub_1_arg.n1 = n1;
+		sub_1_arg.n2 = n2;
+		sub_1_arg.op = op;
+
+		result_2 = sub_1(&sub_1_arg, clnt);
+		if (result_2 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_2;
+
+	} else if (op == '*') {
+
+		mul_1_arg.n1 = n1;
+		mul_1_arg.n2 = n2;
+		mul_1_arg.op = op;
+
+		result_3 = mul_1(&mul_1_arg, clnt);
+		if (result_3 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_3;
+
+	} else if (op == '/') {
+
+		div_1_arg.n1 = n1;
+		div_1_arg.n2 = n2;
+		div_1_arg.op = op;
+
+		if (n2 == 0) {
+			printf("Não pode dividir por zero\n");
+			exit(1);
+		} else {
+			result_4 = div_1(&div_1_arg, clnt);
+			if (result_4 == (int *) NULL) {
+				clnt_perror (clnt, "call failed");
+			}
+		}
+		
+		return *result_4;
+
+	} else if (op == 'r') {
+
+		res_1_arg.n1 = n1;
+		res_1_arg.n2 = n2;
+		res_1_arg.op = op;
+
+		result_5 = res_1(&res_1_arg, clnt);
+		if (result_5 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_5;
+
+	} else if (op == 'a') {
+
+		abs_1_arg.n1 = n1;
+		abs_1_arg.n2 = n2;
+		abs_1_arg.op = op;
+
+		result_6 = abs_1(&abs_1_arg, clnt);
+		if (result_6 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_6;
+
+	} else if (op == 'e') {
+
+		exp_1_arg.n1 = n1;
+		exp_1_arg.n2 = n2;
+		exp_1_arg.op = op;
+
+		result_7 = exp_1(&exp_1_arg, clnt);
+		if (result_7 == (int *) NULL) {
+			clnt_perror (clnt, "call failed");
+		}
+
+		return *result_7;
 	}
-	result_2 = sub_1(&sub_1_arg, clnt);
-	if (result_2 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_3 = mul_1(&mul_1_arg, clnt);
-	if (result_3 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_4 = div_1(&div_1_arg, clnt);
-	if (result_4 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_5 = abs_1(&abs_1_arg, clnt);
-	if (result_5 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_6 = res_1(&res_1_arg, clnt);
-	if (result_6 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_7 = exp_1(&exp_1_arg, clnt);
-	if (result_7 == (float *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-#ifndef	DEBUG
-	clnt_destroy (clnt);
-#endif	 /* DEBUG */
+
+#ifndef DEBUG
+	clnt_destroy(clnt);
+#endif /* DEBUG */
+
 }
 
 
 int
 main (int argc, char *argv[])
 {
-	char *host, op;
-	float n1, n2;
-	CLIENT *clnt;
+	char *host;
+	int n1, n2;
+	char op;
 
 	if (argc < 2) {
 		printf ("usage: %s server_host\n", argv[0]);
 		exit (1);
 	}
-
 
 	printf("Calc Distribuidos\n");
 	printf("Escolha a operação\n");
@@ -91,24 +160,15 @@ main (int argc, char *argv[])
 	printf("(r) Resto\n");
 	printf("(e) Expoente\n:");
 	scanf("%s",&op);
-	
+
 	printf("Entre com o número 1\n:");
-	scanf("%f",&n1);
+	scanf("%d",&n1);
 	
-	printf("Entre com o número2\n:");
-	scanf("%f",&n2);
+	printf("Entre com o número 2\n:");
+	scanf("%d",&n2);
 
 	host = argv[1];
-	
-	clnt = clnt_create (host, SIMP_PROG, SIMP_VERSION, "udp");
+	printf("Resposta: = %d\n", calc_prog_1 (host, n1, n2, op));
 
-	if (clnt == NULL) {
-		clnt_pcreateerror (host);
-		exit(1);
-	}
-
-	simp_prog_1 (host);
-
-	clnt_destroy (clnt);
-exit (0);
+	exit (0);
 }
