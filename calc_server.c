@@ -59,9 +59,8 @@ res_1_svc(operants *argp, struct svc_req *rqstp)
 {
 	static int  result;
 
-	result = argp->n1 + argp-> n2;
-	if(result < 0) result *= -1;
-	printf("Solicitada Abs de dois números: |%d + %d|\n",argp->n1, argp->n2);
+	result = argp->n1 % argp->n2;
+	printf("Solicitada Resto de dois números: %d res %d\n", argp->n1, argp->n2);
 	printf("Resposta enviada: %d\n", result);
 
 	return &result;
@@ -72,8 +71,9 @@ abs_1_svc(operants *argp, struct svc_req *rqstp)
 {
 	static int  result;
 
-	result = argp->n1 % argp->n2;
-	printf("Solicitada Resto de dois números: %d res %d\n", argp->n1, argp->n2);
+	result = argp->n1 + argp-> n2;
+	if(result < 0) result *= -1;
+	printf("Solicitada Abs de dois números: |%d + %d|\n",argp->n1, argp->n2);
 	printf("Resposta enviada: %d\n", result);
 
 	return &result;
