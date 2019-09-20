@@ -1,6 +1,7 @@
 struct operands{
 	float n1;
 	float n2;
+	char op;
 };
 
 program SIMP_PROG {

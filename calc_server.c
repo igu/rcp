@@ -1,5 +1,4 @@
 #include "calc.h"
-#include "math.h"
 
 float *
 sum_1_svc(operands *argp, struct svc_req *rqstp)
@@ -7,7 +6,7 @@ sum_1_svc(operands *argp, struct svc_req *rqstp)
 	static float result;
 	result = argp->n1 + argp-> n2;
 	printf("Solicitada Adição: %f + %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 	return &result;
 }
 
@@ -18,7 +17,7 @@ sub_1_svc(operands *argp, struct svc_req *rqstp)
 
 	result = argp->n1 - argp-> n2;
 	printf("Solicitada Subtração: %f - %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
@@ -30,7 +29,7 @@ mul_1_svc(operands *argp, struct svc_req *rqstp)
 
 	result = argp->n1 * argp-> n2;
 	printf("Solicitada Multiplicação: %f * %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
@@ -42,7 +41,7 @@ div_1_svc(operands *argp, struct svc_req *rqstp)
 
 	result = argp->n1 / argp-> n2;
 	printf("Solicitada Divisão: %f / %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
@@ -53,9 +52,9 @@ abs_1_svc(operands *argp, struct svc_req *rqstp)
 	static float  result;
 
 	result = argp->n1 + argp-> n2;
-	if(resultado < 0) result *= -1;
+	if(result < 0) result *= -1;
 	printf("Solicitada Abs de dois números: |%f + %f|",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
@@ -63,11 +62,11 @@ abs_1_svc(operands *argp, struct svc_req *rqstp)
 float *
 res_1_svc(operands *argp, struct svc_req *rqstp)
 {
-	static float  result;
+	static float result;
 
-	result = argp->n1 % argp-> n2;
-	printf("Solicitada Resto de dois números: %f res %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	result = ((int) argp->n1) % ((int)argp->n2);
+	printf("Solicitada Resto de dois números: %d res %d", ((int)argp->n1), ((int)argp->n2));
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
@@ -76,10 +75,15 @@ float *
 exp_1_svc(operands *argp, struct svc_req *rqstp)
 {
 	static float  result;
+	static int i; 
+	result = (int) argp->n1;
+	
+	for(i = 0; i < (int) argp->n2; i++) {
+	  result *= (int) argp->n1;
+	}
 
-	result = pow(argp->n1, argp-> n2);
 	printf("Solicitada Expoente de dois números: %f ^ %f",argp->n1, argp->n2);
-	printf("Resposta enviada: %f", resul);
+	printf("Resposta enviada: %f", result);
 
 	return &result;
 }
