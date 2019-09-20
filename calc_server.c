@@ -87,7 +87,7 @@ exp_1_svc(operants *argp, struct svc_req *rqstp)
 	static int i; 
 	result = argp->n1;
 	
-	for(i = 0; i < argp->n2; i++) {
+	for(i = 1; i < argp->n2; i++) {
 	  result *= argp->n1;
 	}
 
